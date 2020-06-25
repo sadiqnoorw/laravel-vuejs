@@ -13,6 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <menu-container :items="{{ json_encode($categories)}}"></menu-container>
                 </div>
             </div>
         </div>

@@ -28,7 +28,9 @@
                 <div class="card">  
                     <card-component>
                         <template slot='title'>Add menu items</template>
-                        <template slot='main'>Form come here</template>
+                        <template slot='main'>
+                            <menu-add-form :categories="categories"></menu-add-form>
+                        </template>
 
                     </card-component>
                 </div>
@@ -42,11 +44,13 @@
 Vue.component('card-component', require('../../components/Card.vue').default);
 import Multiselect from 'vue-multiselect';
 import MenuGroups from "./MenuGroups.vue";
+import MenuAddForm from "./MenuAddForm.vue";
+
     export default {
         props: ['items'],
         components: {
           
-            Multiselect, MenuGroups
+            Multiselect, MenuGroups, MenuAddForm
         
         },
 

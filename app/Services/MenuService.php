@@ -9,7 +9,7 @@ class MenuService {
 	{
 		$categories = Menu::whereIn('resto_id', $restoIds)
             ->get()
-            ->groupBy('category.id');
+            ->groupBy('category.name');
             
             return $categories;
 	}    

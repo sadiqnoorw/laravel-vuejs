@@ -9,6 +9,7 @@ class Menu extends Model
 {
 	//return menu with categories
 	protected $with = ['category'];
+	protected $guarded = [];
 
     public function category()
     {

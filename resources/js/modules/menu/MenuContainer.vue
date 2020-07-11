@@ -15,7 +15,7 @@
                             </multiselect>
                         </div>
 
-                        <menu-groups :items="currentMenuItems" ></menu-groups>
+                        <menu-groups :items="currentMenuItems" currentMenuItems=""></menu-groups>
                     </template>
 
 
@@ -29,7 +29,11 @@
                     <card-component>
                         <template slot='title'>Add menu items</template>
                         <template slot='main'>
-                            <menu-add-form :categories="categories"></menu-add-form>
+                            <menu-add-form 
+                                :categories="categories" 
+                                :resto-id="restoId"
+                                v-on:newMenuItemAdded="handleNewMenuItem"
+                            ></menu-add-form>
                         </template>
 
                     </card-component>
@@ -47,7 +51,7 @@ import MenuGroups from "./MenuGroups.vue";
 import MenuAddForm from "./MenuAddForm.vue";
 
     export default {
-        props: ['items'],
+        props: ['items', 'restoId'],
         components: {
           
             Multiselect, MenuGroups, MenuAddForm
@@ -59,19 +63,27 @@ import MenuAddForm from "./MenuAddForm.vue";
                 this.categories.push(key);
             });
 
-            this.menu = this.categories[0]
+            this.menu = this.categories[0];
+            this.localItems = this.items;
         },
 
         data() {
             return {
+                localItems: '',
                 categories: [],
-                menu: ''
+                menu: '',
             }
         },
 
         computed: {
             currentMenuItems() {
-                return this.items[this.menu];
+                return this.localItems[this.menu];
+            }
+        },
+
+        methods: {
+            handleNewMenuItem(item, category) {
+                this.localItems[category].unshift(item);
             }
         }
         

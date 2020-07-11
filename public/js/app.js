@@ -1968,25 +1968,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["categories"],
+  props: ["categories", "restoId"],
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
     return {
-      food: {
-        item: '',
-        category: '',
-        price: 100
-      }
+      food: this.emptyFoodItem()
     };
   },
   methods: {
+    emptyFoodItem: function emptyFoodItem() {
+      return {
+        item: '',
+        category: '',
+        description: '',
+        price: 100
+      };
+    },
     handleSubmit: function handleSubmit() {
+      var _this = this;
+
       //				event.preventDefault();
-      console.log('form data', this.food);
+      var postData = this.food;
+      postData.restoId = this.restoId;
+      console.log('form data', postData);
+      window.axios.post('api/item/save', postData).then(function (response) {
+        _this.food = _this.emptyFoodItem();
+
+        _this.$emit('newMenuItemAdded', response.data, postData.category);
+      })["catch"](function (error) {
+        return console.log('error', error.response);
+      });
     }
   }
 });
@@ -2048,12 +2067,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 Vue.component('card-component', __webpack_require__(/*! ../../components/Card.vue */ "./resources/js/components/Card.vue")["default"]);
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['items'],
+  props: ['items', 'restoId'],
   components: {
     Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a,
     MenuGroups: _MenuGroups_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -2067,16 +2090,23 @@ Vue.component('card-component', __webpack_require__(/*! ../../components/Card.vu
     });
 
     this.menu = this.categories[0];
+    this.localItems = this.items;
   },
   data: function data() {
     return {
+      localItems: '',
       categories: [],
       menu: ''
     };
   },
   computed: {
     currentMenuItems: function currentMenuItems() {
-      return this.items[this.menu];
+      return this.localItems[this.menu];
+    }
+  },
+  methods: {
+    handleNewMenuItem: function handleNewMenuItem(item, category) {
+      this.localItems[category].unshift(item);
     }
   }
 });
@@ -38390,6 +38420,37 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "from-group" }, [
+          _c("label", { attrs: { for: "price" } }, [
+            _vm._v(" Food Description ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "textarea",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.food.description,
+                  expression: "food.description"
+                }
+              ],
+              staticClass: "form-control",
+              domProps: { value: _vm.food.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.food, "description", $event.target.value)
+                }
+              }
+            },
+            [_vm._v("Enter food item Description")]
+          )
+        ]),
+        _vm._v(" "),
         _vm._m(0)
       ]
     )
@@ -38459,7 +38520,9 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("menu-groups", { attrs: { items: _vm.currentMenuItems } })
+                  _c("menu-groups", {
+                    attrs: { items: _vm.currentMenuItems, currentMenuItems: "" }
+                  })
                 ],
                 1
               )
@@ -38485,7 +38548,11 @@ var render = function() {
                   { slot: "main" },
                   [
                     _c("menu-add-form", {
-                      attrs: { categories: _vm.categories }
+                      attrs: {
+                        categories: _vm.categories,
+                        "resto-id": _vm.restoId
+                      },
+                      on: { newMenuItemAdded: _vm.handleNewMenuItem }
                     })
                   ],
                   1

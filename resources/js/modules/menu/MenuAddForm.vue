@@ -6,6 +6,7 @@
 			<div class="from-group">
 				<label for="name"> Food item </label>
 				<input class="form-control" type="text" placeholder="Enter food item name" v-model="food.item">
+				<div class="validation-message" v-text="validation.getMessage('item')"></div>
 			</div>
 
 			<div class="from-group">
@@ -15,15 +16,18 @@
                     v-model='food.category'
                     >
                 </multiselect>
+                <div class="validation-message" v-text="validation.getMessage('category')"></div>
 			</div>
 
 			<div class="from-group">
 				<label for="price"> Food price </label>
 				<input class="form-control" type="number" placeholder="Enter food item price" v-model="food.price">
+				<div class="validation-message" v-text="validation.getMessage('price')"></div>
 			</div>
 			<div class="from-group">
 				<label for="price"> Food Description </label>
 				<textarea class="form-control" v-model="food.description">Enter food item Description</textarea>
+				<div class="validation-message" v-text="validation.getMessage('description')"></div>
 			</div>
 
 			<div class="from-group">
@@ -37,7 +41,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
-
+import Validation from '../../utils/Validation.js'
 	export default {
 		props: ["categories", "restoId"],
 		components: {
@@ -46,7 +50,8 @@ import Multiselect from 'vue-multiselect';
 
 		data () {
 			return {
-				food: this.emptyFoodItem() 
+				food: this.emptyFoodItem(),
+				validation: new Validation() 
 			}
 		},
 		methods: {
@@ -67,7 +72,12 @@ import Multiselect from 'vue-multiselect';
 				window.axios.post('api/item/save', postData).then(response => {
 					this.food = this.emptyFoodItem();
 					this.$emit('newMenuItemAdded', response.data, postData.category);
-				}).catch(error => console.log('error', error.response));
+				}).catch(error => {
+					if (error.response.status == 422) {
+						this.validation.setMessage(error.response.data.errors);									
+					console.log('error',error.response.data.errors)
+					}
+				});
 
 			}
 		}

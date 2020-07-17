@@ -15,7 +15,7 @@
                             </multiselect>
                         </div>
 
-                        <menu-groups :items="currentMenuItems" currentMenuItems=""></menu-groups>
+                        <menu-groups :items="currentMenuItems"></menu-groups>
                     </template>
 
 

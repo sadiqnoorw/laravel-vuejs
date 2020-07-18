@@ -45,7 +45,6 @@
 </template>
 
 <script>
-Vue.component('card-component', require('../../components/Card.vue').default);
 import Multiselect from 'vue-multiselect';
 import MenuGroups from "./MenuGroups.vue";
 import MenuAddForm from "./MenuAddForm.vue";

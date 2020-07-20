@@ -10933,3 +10933,7 @@ a.text-dark:focus {
   font-size: 0.9em;
 }
 
+.resto_add_form_wrapper {
+  margin: 20px;
+}
+

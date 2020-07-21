@@ -2004,17 +2004,16 @@ __webpack_require__.r(__webpack_exports__);
 
       //				event.preventDefault();
       var postData = this.food;
-      postData.restoId = this.restoId;
-      console.log('form data', postData);
+      postData.restoId = this.restoId; //console.log('form data', postData);
+
       window.axios.post('api/item/save', postData).then(function (response) {
         _this.food = _this.emptyFoodItem();
 
         _this.$emit('newMenuItemAdded', response.data, postData.category);
       })["catch"](function (error) {
         if (error.response.status == 422) {
-          _this.validation.setMessage(error.response.data.errors);
+          _this.validation.setMessage(error.response.data.errors); //console.log('error',error.response.data.errors)
 
-          console.log('error', error.response.data.errors);
         }
       });
     }
@@ -2217,7 +2216,7 @@ __webpack_require__.r(__webpack_exports__);
     basicResto: function basicResto() {
       return {
         name: '',
-        address: '',
+        location: '',
         tables: 0
       };
     },
@@ -2292,6 +2291,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+ //import axios from "axios";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['restos'],
@@ -2299,15 +2299,18 @@ __webpack_require__.r(__webpack_exports__);
     RestoAddForm: _RestoAddForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   created: function created() {
-    console.log("this.restos.length", this.restos.length);
+    //	console.log("this.restos.length", this.restos.length);
+    this.localResto = this.restos;
   },
   computed: {
     showAddForm: function showAddForm() {
-      return this.restos.length < 5 ? true : false;
+      return this.localResto.length < 5 ? true : false;
     }
   },
   data: function data() {
-    return {};
+    return {
+      localResto: []
+    };
   },
   methods: {
     handleAddNewResto: function handleAddNewResto() {
@@ -2325,7 +2328,15 @@ __webpack_require__.r(__webpack_exports__);
       this.$modal.hide('add-new-resto');
     },
     handleSaveResto: function handleSaveResto(restoData) {
-      console.log(restoData);
+      var _this = this;
+
+      axios.post('/api/resto', restoData).then(function (response) {
+        console.log('response', response.data);
+
+        _this.localResto.unshift(response.data);
+
+        _this.$modal.hide('add-new-resto');
+      });
     }
   }
 });
@@ -38949,30 +38960,30 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "address" } }, [_vm._v("Address")]),
+      _c("label", { attrs: { for: "location" } }, [_vm._v("Address")]),
       _vm._v(" "),
       _c("input", {
         directives: [
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.resto.address,
-            expression: "resto.address"
+            value: _vm.resto.location,
+            expression: "resto.location"
           }
         ],
         staticClass: "form-control",
         attrs: {
           type: "text",
-          id: "address",
-          placeholder: "enter restaurent address"
+          id: "location",
+          placeholder: "enter restaurent location"
         },
-        domProps: { value: _vm.resto.address },
+        domProps: { value: _vm.resto.location },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.resto, "address", $event.target.value)
+            _vm.$set(_vm.resto, "location", $event.target.value)
           }
         }
       })
@@ -39050,7 +39061,7 @@ var render = function() {
       "div",
       { staticClass: "row" },
       [
-        _vm._l(_vm.restos, function(resto) {
+        _vm._l(_vm.localResto, function(resto) {
           return _c(
             "div",
             { key: resto.id, staticClass: "col-md-4" },

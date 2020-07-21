@@ -11,13 +11,13 @@
 		</div>
 
 		<div class="form-group">
-		    <label for="address">Address</label>
+		    <label for="location">Address</label>
 		    <input 
 		    	type="text" 
 		    	class="form-control" 
-		    	id="address"
-		    	v-model="resto.address" 
-		    	placeholder="enter restaurent address">
+		    	id="location"
+		    	v-model="resto.location" 
+		    	placeholder="enter restaurent location">
 		</div>
 
 		<div class="form-group">
@@ -46,7 +46,7 @@
 
 		methods: {
 			basicResto() {
-				return { name: '', address: '', tables: 0}
+				return { name: '', location: '', tables: 0}
 			},
 
 			handleAddButton() {
@@ -57,8 +57,6 @@
 				this.basicResto();
 				this.$emit('modelCancel');
 			}
-
 		}
-
 	}
 </script>

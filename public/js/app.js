@@ -2004,17 +2004,16 @@ __webpack_require__.r(__webpack_exports__);
 
       //				event.preventDefault();
       var postData = this.food;
-      postData.restoId = this.restoId;
-      console.log('form data', postData);
+      postData.restoId = this.restoId; //console.log('form data', postData);
+
       window.axios.post('api/item/save', postData).then(function (response) {
         _this.food = _this.emptyFoodItem();
 
         _this.$emit('newMenuItemAdded', response.data, postData.category);
       })["catch"](function (error) {
         if (error.response.status == 422) {
-          _this.validation.setMessage(error.response.data.errors);
+          _this.validation.setMessage(error.response.data.errors); //console.log('error',error.response.data.errors)
 
-          console.log('error', error.response.data.errors);
         }
       });
     }
@@ -2300,7 +2299,7 @@ __webpack_require__.r(__webpack_exports__);
     RestoAddForm: _RestoAddForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   created: function created() {
-    console.log("this.restos.length", this.restos.length);
+    //	console.log("this.restos.length", this.restos.length);
     this.localResto = this.restos;
   },
   computed: {

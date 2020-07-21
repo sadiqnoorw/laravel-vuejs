@@ -68,15 +68,19 @@ import Validation from '../../utils/Validation.js'
 //				event.preventDefault();
 				let postData = this.food;
 				postData.restoId = this.restoId;
-				console.log('form data', postData);
+				//console.log('form data', postData);
+
 				window.axios.post('api/item/save', postData).then(response => {
 					this.food = this.emptyFoodItem();
 					this.$emit('newMenuItemAdded', response.data, postData.category);
+				
 				}).catch(error => {
+				
 					if (error.response.status == 422) {
 						this.validation.setMessage(error.response.data.errors);									
-					console.log('error',error.response.data.errors)
+						//console.log('error',error.response.data.errors)
 					}
+
 				});
 
 			}

@@ -58,7 +58,7 @@
         },
 		created() {
 			
-			console.log("this.restos.length", this.restos.length);
+		//	console.log("this.restos.length", this.restos.length);
 			this.localResto = this.restos;
 		},
 

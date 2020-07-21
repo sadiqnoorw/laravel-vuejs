@@ -57,8 +57,6 @@
 				this.basicResto();
 				this.$emit('modelCancel');
 			}
-
 		}
-
 	}
 </script>

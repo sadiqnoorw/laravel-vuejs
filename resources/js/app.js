@@ -9,6 +9,11 @@ require('vue-multiselect/dist/vue-multiselect.min.css');
 
 import VModal from 'vue-js-modal';
 
+import Turbolinks from 'turbolinks';
+import TurbolinksAdapter from 'vue-turbolinks';
+
+Turbolinks.start();
+
 window.Vue = require('vue');
 
 Vue.use(VModal);
@@ -43,6 +48,12 @@ Vue.component('menu-container', require('./modules/menu/MenuContainer.vue').defa
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
+document.addEventListener('turbolinks:load', () => {
+	var element = document.getElementById("app");
+	if (element != null) {
+	    var app = new Vue({
+		    el: element
+	    });
+    }
 });
+

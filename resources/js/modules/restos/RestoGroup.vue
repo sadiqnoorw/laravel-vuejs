@@ -6,7 +6,11 @@
 				
 				<card-component>
 					<template slot="title"> {{resto.name}} </template>	
-					<template slot="main"> {{resto.location}} </template>	
+					<template slot="main"> 
+						{{resto.location}}
+						<br>
+						<a v-bind:href="resto.slug" class="card-link">Menu</a>
+					 </template>	
 				</card-component>
 				
 			</div>

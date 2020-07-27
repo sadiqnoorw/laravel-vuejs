@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
+//use App\Restaurant;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,6 +18,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'Sadiq Noor',
             'email' => 'sadiq.pk33@gmail.com',
             'password' => Hash::make('sadiq123'),
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
         $user->restaurants()->create([
@@ -31,5 +36,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'Mukesh Lunch Home',
             'location' => 'Sai Balaji Tower, Airoli Navi Mumbai',
         ]);
+
+
+
     }
 }

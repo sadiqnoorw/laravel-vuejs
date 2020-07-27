@@ -20,8 +20,8 @@ class RestaurantOrderController extends Controller
     	}
 
     	$orders = Order::where('resto_id', $id)
-            ->orderBy('isComplete')
-            ->paginate(20);
+                ->orderBy('isComplete')
+                ->paginate(20);
 
     	return view('orders.order-index', compact('resto', 'orders'));
     }

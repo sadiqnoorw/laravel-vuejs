@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="row mb-3">
 		<div class="col-md-12">
-			<h2>Manage orders for {{ $resto->name }}</h2>
+			<h2> Manage orders for {{ $resto->name }} </h2>
 		</div>
 	</div>
 

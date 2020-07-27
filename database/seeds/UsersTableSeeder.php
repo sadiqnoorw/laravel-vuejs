@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Schema;
-//use App\Restaurant;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,30 +11,25 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $users = App\User::create([
+        $user = App\User::create([
             'name' => 'Sadiq Noor',
             'email' => 'sadiq.pk33@gmail.com',
             'password' => Hash::make('sadiq123'),
-            'created_at' => now(),
-            'updated_at' => now()
         ]);
 
-
-        $users->restaurants()->create([
+        $user->restaurants()->create([
             'name' => 'Highway Star',
-            'location' => 'shazed Road, Diera dubai',
+            'location' => 'Bhuvandas Road, NH14 Dadar, Mumbai',
         ]);
 
-        $users->restaurants()->create([
+        $user->restaurants()->create([
             'name' => 'Mainland China',
-            'location' => 'Platinum Tech Park Vashi, Navi dubai',
+            'location' => 'Platinum Tech Park Vashi, Navi Mumbai',
         ]);
-        
-        $users->restaurants()->create([
+
+        $user->restaurants()->create([
             'name' => 'Mukesh Lunch Home',
-            'location' => 'Sai Balaji Tower, near Rigga metro',
+            'location' => 'Sai Balaji Tower, Airoli Navi Mumbai',
         ]);
-
-
     }
 }

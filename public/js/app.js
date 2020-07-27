@@ -2295,6 +2295,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
  //import axios from "axios";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -39098,10 +39103,23 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("template", { slot: "main" }, [
+                    _c("i", {
+                      staticClass: "fa fa-map-marker",
+                      attrs: { "aria-hidden": "true" }
+                    }),
                     _vm._v(
-                      " \n\t\t\t\t\t\t" +
+                      "\n\t\t\t\t\t\t" +
                         _vm._s(resto.location) +
                         "\n\t\t\t\t\t\t"
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("i", {
+                      staticClass: "fa fa-table",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(
+                      "\n\t\t\t\t\t\t" + _vm._s(resto.tables) + "\n\t\t\t\t\t\t"
                     ),
                     _c("br"),
                     _vm._v(" "),
@@ -39109,6 +39127,15 @@ var render = function() {
                       "a",
                       { staticClass: "card-link", attrs: { href: resto.slug } },
                       [_vm._v("Menu")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "card-link",
+                        attrs: { href: resto.odersSlug }
+                      },
+                      [_vm._v("Orders")]
                     )
                   ])
                 ],
@@ -39133,7 +39160,10 @@ var render = function() {
                     _vm._v(" "),
                     _c("template", { slot: "main" }, [
                       _c("span", { on: { click: _vm.handleAddNewResto } }, [
-                        _vm._v("+")
+                        _c("i", {
+                          staticClass: "fa fa-plus-square fa-2x",
+                          attrs: { "aria-hidden": "true" }
+                        })
                       ])
                     ])
                   ],

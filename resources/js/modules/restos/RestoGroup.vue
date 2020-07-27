@@ -7,9 +7,14 @@
 				<card-component>
 					<template slot="title"> {{resto.name}} </template>	
 					<template slot="main"> 
+						<i class="fa fa-map-marker" aria-hidden="true"></i>
 						{{resto.location}}
 						<br>
+						<i class="fa fa-table" aria-hidden="true"></i>
+						{{resto.tables}}
+						<br>
 						<a v-bind:href="resto.slug" class="card-link">Menu</a>
+						<a v-bind:href="resto.odersSlug" class="card-link">Orders</a>
 					 </template>	
 				</card-component>
 				
@@ -19,7 +24,7 @@
 				<card-component>
 					<template slot="title"> Add new Restaurant </template>	
 					<template slot="main">
-						<span @click="handleAddNewResto">+</span> 
+						<span @click="handleAddNewResto"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></span> 
 					</template>		
 				</card-component>
 

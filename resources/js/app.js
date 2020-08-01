@@ -49,6 +49,8 @@ Vue.component('order-group', require('./modules/orders/OrderGroup.vue').default)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+window.eventBus = new Vue({});
+
 document.addEventListener('turbolinks:load', () => {
 	var element = document.getElementById("app");
 	if (element != null) {

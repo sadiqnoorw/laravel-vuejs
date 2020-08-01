@@ -40,6 +40,7 @@ Vue.component('restos-group', require('./modules/restos/RestoGroup.vue').default
 
 
 Vue.component('menu-container', require('./modules/menu/MenuContainer.vue').default);
+Vue.component('order-group', require('./modules/orders/OrderGroup.vue').default);
 
 
 /**

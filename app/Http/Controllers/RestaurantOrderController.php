@@ -25,4 +25,11 @@ class RestaurantOrderController extends Controller
 
     	return view('orders.order-index', compact('resto', 'orders'));
     }
+
+    public function add($id)
+    {
+        $resto = Restaurant::findOrFail($id);
+        
+        return view('orders.order-add', compact('resto'));
+    }
 }

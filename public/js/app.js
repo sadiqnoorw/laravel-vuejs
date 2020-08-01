@@ -39112,64 +39112,91 @@ var render = function() {
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c(
-          "input",
-          _vm._b(
+        _c("input", {
+          directives: [
             {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "name",
-                placeholder: "enter customer name"
+              name: "model",
+              rawName: "v-model",
+              value: _vm.customer.name,
+              expression: "customer.name"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "name",
+            placeholder: "enter customer name"
+          },
+          domProps: { value: _vm.customer.name },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
               }
-            },
-            "input",
-            _vm.customer.name,
-            false
-          )
-        )
+              _vm.$set(_vm.customer, "name", $event.target.value)
+            }
+          }
+        })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "phone" } }, [_vm._v("Phone")]),
         _vm._v(" "),
-        _c(
-          "input",
-          _vm._b(
+        _c("input", {
+          directives: [
             {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "location",
-                placeholder: "enter customer phone"
+              name: "model",
+              rawName: "v-model",
+              value: _vm.customer.phone,
+              expression: "customer.phone"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "location",
+            placeholder: "enter customer phone"
+          },
+          domProps: { value: _vm.customer.phone },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
               }
-            },
-            "input",
-            _vm.customer.phone,
-            false
-          )
-        )
+              _vm.$set(_vm.customer, "phone", $event.target.value)
+            }
+          }
+        })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "address" } }, [_vm._v("Address")]),
         _vm._v(" "),
-        _c(
-          "input",
-          _vm._b(
+        _c("input", {
+          directives: [
             {
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "address",
-                placeholder: "enter customer address"
+              name: "model",
+              rawName: "v-model",
+              value: _vm.customer.address,
+              expression: "customer.address"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "text",
+            id: "address",
+            placeholder: "enter customer address"
+          },
+          domProps: { value: _vm.customer.address },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
               }
-            },
-            "input",
-            _vm.customer.address,
-            false
-          )
-        )
+              _vm.$set(_vm.customer, "address", $event.target.value)
+            }
+          }
+        })
       ])
     ])
   ])

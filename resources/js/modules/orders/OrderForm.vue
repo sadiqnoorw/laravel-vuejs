@@ -6,7 +6,7 @@
 			    <input type="text" 
 			    	class="form-control" 
 			    	id="name"
-			    	v-bind="customer.name" 
+			    	v-model="customer.name" 
 			    	placeholder="enter customer name">
 			</div>
 
@@ -16,7 +16,7 @@
 			    	type="text" 
 			    	class="form-control" 
 			    	id="location"
-			    	v-bind="customer.phone" 
+			    	v-model="customer.phone" 
 			    	placeholder="enter customer phone">
 			</div>
 
@@ -26,7 +26,7 @@
 			    	type="text" 
 			    	class="form-control" 
 			    	id="address"
-			    	v-bind="customer.address" 
+			    	v-model="customer.address" 
 			    	placeholder="enter customer address">
 			</div>
 		</form>	

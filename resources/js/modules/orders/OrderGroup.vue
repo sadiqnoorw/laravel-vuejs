@@ -42,6 +42,7 @@
 			return {
 				menuItems: [],
 				orderDetails: [],
+				originalMenuItems: []
 				//finalAmout:0,
 			}
 		},
@@ -49,6 +50,9 @@
 		created() {
 			this.loadRestoMenuItems();
 			window.eventBus.$on('addMenuItem', this.handleNewMenuItem);
+			// window.eventBus.$on('filteredList', this.handleFilteredList);
+			// window.eventBus.$on('clearFilteredList', this.handleClearFilteredList);
+			window.eventBus.$on('filteredEventList', this.handleFilteredEventList);
 		},
 
 		computed: {
@@ -64,14 +68,37 @@
 			loadRestoMenuItems() {
 				let postData = {restoId: this.restoId};
 				axios.post('/api/resto/menu', postData)
-				.then(response => console.log('response', this.menuItems = response.data))
+				.then(response => {
+					this.menuItems = response.data;
+					this.originalMenuItems = response.data;
+				})
 				.catch(error => console.error(error.response));
 			},
 
 			handleNewMenuItem(item) {
 			//	this.finalAmout = this.finalAmout + item.price;
 				this.orderDetails.unshift(item);
+			},
+
+			// handleFilteredList(filteredList) {
+			// 	this.menuItems = filteredList;
+			// }, 
+
+			// handleClearFilteredList() {
+			// 	this.menuItems = this.originalMenuItems; 
+			// },
+
+			handleFilteredEventList(searchValue){
+				let filteredList = [];
+
+				this.menuItems = this.originalMenuItems.filter(item => {
+				 	return item.name.toLowerCase().includes(searchValue.toLowerCase());
+				 });
+				
+//				this.menuItems = filteredList;
+
 			}
+
 		}
 
 	}

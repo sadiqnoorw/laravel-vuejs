@@ -1,26 +1,33 @@
 <template>
-	<div class="row">
-		<div class="col-md-7">
-			<div class="mb-5">
-				<p>Customer Details</p>
-				<order-form></order-form>	
-			</div>
-			 
-			<div class="mb-3">
-				<h3>Order Details 
-					<span class="float-right" v-if="finalAmout > 0">{{finalAmout}} </span> 
-				</h3>
-				<order-details :order-details="orderDetails"></order-details>	
+	<div>
+		<div class="row mb-3">
+			<div class="col-md-12">
+				<button class="btn btn-success float-right" @click="handleOrderSave">Save</button>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-7">
+				<div class="mb-5">
+					<p>Customer Details</p>
+					<order-form @customerDetailsChanged="customerDetailsHandle"></order-form>	
+				</div>
+				 
+				<div class="mb-3">
+					<h3>Order Details 
+						<span class="float-right" v-if="finalAmout > 0">{{finalAmout}} </span> 
+					</h3>
+					<order-details :order-details="orderDetails"></order-details>	
+				</div>
+			</div>
 
-		<div class="col-md-5">
-			<p>Menu items </p>
-	
-			<order-menu-items 
-			:items="menuItems"
-			@addMenuItem="handleNewMenuItem"
-			></order-menu-items>
+			<div class="col-md-5">
+				<p>Menu items </p>
+		
+				<order-menu-items 
+				:items="menuItems"
+				@addMenuItem="handleNewMenuItem"
+				></order-menu-items>
+			</div>
 		</div>
 	</div>
 </template>
@@ -42,7 +49,8 @@
 			return {
 				menuItems: [],
 				orderDetails: [],
-				originalMenuItems: []
+				originalMenuItems: [],
+				customerDetails: null,
 				//finalAmout:0,
 			}
 		},
@@ -96,6 +104,38 @@
 				 });
 				
 //				this.menuItems = filteredList;
+
+			},
+
+			customerDetailsHandle(customer) {
+				this.customerDetails = customer;
+			},
+
+			handleOrderSave() {
+				let orderItemsIds = [];
+				this.orderDetails.forEach(item => {
+					orderItemsIds.unshift(item.id);
+				})
+
+				let orderData = {
+					customerDetails: this.customerDetails,
+					totalPrice: this.finalAmout,
+					orderedItems: orderItemsIds
+				};
+	//			console.log(orderData);
+				// axios.post('/api/order/save', orderData)
+				// .then(response => {
+				// 	console.log(response);
+				// })
+				// .catch(error => console.error(error.response));
+
+				axios.post('/api/order/save', orderData)
+				.then(response => {
+					console.log(response)
+				})
+				.catch(error => {
+					console.error(error.response)
+				});
 
 			}
 

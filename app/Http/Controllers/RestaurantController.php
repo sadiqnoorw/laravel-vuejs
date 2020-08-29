@@ -17,7 +17,7 @@ class RestaurantController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function save(Request $request)
     {
     	$postData = $this->validate($request, [
     		'name' => 'required|min:3',
@@ -31,4 +31,5 @@ class RestaurantController extends Controller
     		
     	return response()->json($resto, 201);
     }
+
 }

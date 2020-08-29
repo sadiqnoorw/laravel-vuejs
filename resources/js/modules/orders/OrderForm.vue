@@ -43,6 +43,20 @@
 					address: ''
 				}
 			}
+		},
+
+		watch: {
+			customer: {
+				handler(value) {
+					let customer = {
+						name: value.name,
+						phone: value.phone,
+						address: value.address
+					}	
+
+					this.$emit('customerDetailsChanged', customer);
+				}, deep: true
+			}
 		}
 	}
 </script>

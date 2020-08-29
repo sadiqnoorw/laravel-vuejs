@@ -32,4 +32,10 @@ class RestaurantOrderController extends Controller
         
         return view('orders.order-add', compact('resto'));
     }
+
+    public function store(Request $request)
+    {
+        logger($request->all());
+        return $request->all();
+    }
 }

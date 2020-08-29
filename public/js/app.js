@@ -2313,6 +2313,19 @@ __webpack_require__.r(__webpack_exports__);
         address: ''
       }
     };
+  },
+  watch: {
+    customer: {
+      handler: function handler(value) {
+        var customer = {
+          name: value.name,
+          phone: value.phone,
+          address: value.address
+        };
+        this.$emit('customerDetailsChanged', customer);
+      },
+      deep: true
+    }
   }
 });
 
@@ -2359,6 +2372,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2374,7 +2394,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       menuItems: [],
       orderDetails: [],
-      originalMenuItems: [] //finalAmout:0,
+      originalMenuItems: [],
+      customerDetails: null //finalAmout:0,
 
     };
   },
@@ -2423,6 +2444,31 @@ __webpack_require__.r(__webpack_exports__);
       this.menuItems = this.originalMenuItems.filter(function (item) {
         return item.name.toLowerCase().includes(searchValue.toLowerCase());
       }); //				this.menuItems = filteredList;
+    },
+    customerDetailsHandle: function customerDetailsHandle(customer) {
+      this.customerDetails = customer;
+    },
+    handleOrderSave: function handleOrderSave() {
+      var orderItemsIds = [];
+      this.orderDetails.forEach(function (item) {
+        orderItemsIds.unshift(item.id);
+      });
+      var orderData = {
+        customerDetails: this.customerDetails,
+        totalPrice: this.finalAmout,
+        orderedItems: orderItemsIds
+      }; //			console.log(orderData);
+      // axios.post('/api/order/save', orderData)
+      // .then(response => {
+      // 	console.log(response);
+      // })
+      // .catch(error => console.error(error.response));
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/api/order/save', orderData).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.error(error.response);
+      });
     }
   }
 });
@@ -39511,47 +39557,70 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-7" }, [
-      _c(
-        "div",
-        { staticClass: "mb-5" },
-        [_c("p", [_vm._v("Customer Details")]), _vm._v(" "), _c("order-form")],
-        1
-      ),
+  return _c("div", [
+    _c("div", { staticClass: "row mb-3" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success float-right",
+            on: { click: _vm.handleOrderSave }
+          },
+          [_vm._v("Save")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-7" }, [
+        _c(
+          "div",
+          { staticClass: "mb-5" },
+          [
+            _c("p", [_vm._v("Customer Details")]),
+            _vm._v(" "),
+            _c("order-form", {
+              on: { customerDetailsChanged: _vm.customerDetailsHandle }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "mb-3" },
+          [
+            _c("h3", [
+              _vm._v("Order Details \n\t\t\t\t\t"),
+              _vm.finalAmout > 0
+                ? _c("span", { staticClass: "float-right" }, [
+                    _vm._v(_vm._s(_vm.finalAmout) + " ")
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("order-details", {
+              attrs: { "order-details": _vm.orderDetails }
+            })
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "mb-3" },
+        { staticClass: "col-md-5" },
         [
-          _c("h3", [
-            _vm._v("Order Details \n\t\t\t\t"),
-            _vm.finalAmout > 0
-              ? _c("span", { staticClass: "float-right" }, [
-                  _vm._v(_vm._s(_vm.finalAmout) + " ")
-                ])
-              : _vm._e()
-          ]),
+          _c("p", [_vm._v("Menu items ")]),
           _vm._v(" "),
-          _c("order-details", { attrs: { "order-details": _vm.orderDetails } })
+          _c("order-menu-items", {
+            attrs: { items: _vm.menuItems },
+            on: { addMenuItem: _vm.handleNewMenuItem }
+          })
         ],
         1
       )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-md-5" },
-      [
-        _c("p", [_vm._v("Menu items ")]),
-        _vm._v(" "),
-        _c("order-menu-items", {
-          attrs: { items: _vm.menuItems },
-          on: { addMenuItem: _vm.handleNewMenuItem }
-        })
-      ],
-      1
-    )
+    ])
   ])
 }
 var staticRenderFns = []

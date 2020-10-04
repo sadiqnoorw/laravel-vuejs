@@ -102,9 +102,7 @@
 				this.menuItems = this.originalMenuItems.filter(item => {
 				 	return item.name.toLowerCase().includes(searchValue.toLowerCase());
 				 });
-				
 //				this.menuItems = filteredList;
-
 			},
 
 			customerDetailsHandle(customer) {
@@ -118,9 +116,12 @@
 				})
 
 				let orderData = {
-					customerDetails: this.customerDetails,
-					totalPrice: this.finalAmout,
-					orderedItems: orderItemsIds
+					resto_id: this.restoId,
+					order_data:{
+						customerDetails: this.customerDetails,
+						totalPrice: this.finalAmout,
+						orderedItems: orderItemsIds						
+					}
 				};
 	//			console.log(orderData);
 				// axios.post('/api/order/save', orderData)
@@ -136,10 +137,7 @@
 				.catch(error => {
 					console.error(error.response)
 				});
-
 			}
-
 		}
-
 	}
 </script>

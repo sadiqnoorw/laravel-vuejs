@@ -45,13 +45,13 @@ class RestaurantOrderController extends Controller
         ]);
 
         $itemIds = $request['order_data']['orderedItems'];
-        $itemIds[] = 13;
         try {
             DB::beginTransaction();
             $orderTotal = 0;
             foreach ($itemIds as $id) {
                 $menu = Menu::where(['resto_id' => $postData['resto_id'], 'id' => $id ])
                         ->first();
+                
                 if($menu){
                     $orderTotal += $menu->price; 
                 }            
@@ -68,7 +68,6 @@ class RestaurantOrderController extends Controller
                     'customer_phone' => $postData['order_data']['customerDetails']['phone'],
                     'customer_address' => $postData['order_data']['customerDetails']['address']
                 ]
-
             ];
            
             Order::create($postedDate);

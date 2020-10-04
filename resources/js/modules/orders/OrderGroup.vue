@@ -102,9 +102,7 @@
 				this.menuItems = this.originalMenuItems.filter(item => {
 				 	return item.name.toLowerCase().includes(searchValue.toLowerCase());
 				 });
-				
 //				this.menuItems = filteredList;
-
 			},
 
 			customerDetailsHandle(customer) {
@@ -139,10 +137,7 @@
 				.catch(error => {
 					console.error(error.response)
 				});
-
 			}
-
 		}
-
 	}
 </script>

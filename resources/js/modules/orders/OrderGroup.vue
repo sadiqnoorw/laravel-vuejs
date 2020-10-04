@@ -118,9 +118,12 @@
 				})
 
 				let orderData = {
-					customerDetails: this.customerDetails,
-					totalPrice: this.finalAmout,
-					orderedItems: orderItemsIds
+					resto_id: this.restoId,
+					order_data:{
+						customerDetails: this.customerDetails,
+						totalPrice: this.finalAmout,
+						orderedItems: orderItemsIds						
+					}
 				};
 	//			console.log(orderData);
 				// axios.post('/api/order/save', orderData)

@@ -61,6 +61,7 @@
 			// window.eventBus.$on('filteredList', this.handleFilteredList);
 			// window.eventBus.$on('clearFilteredList', this.handleClearFilteredList);
 			window.eventBus.$on('filteredEventList', this.handleFilteredEventList);
+			window.eventBus.$on('removeOrderedItem', this.handleRemoveOrderedItem);
 		},
 
 		computed: {
@@ -73,6 +74,7 @@
 		},
 
 		methods: {
+			
 			loadRestoMenuItems() {
 				let postData = {restoId: this.restoId};
 				axios.post('/api/resto/menu', postData)
@@ -107,6 +109,11 @@
 
 			customerDetailsHandle(customer) {
 				this.customerDetails = customer;
+			},
+
+			handleRemoveOrderedItem(item) {
+				this.orderDetails = this.orderDetails.filter(orderDetail => orderDetail.id != item.id);
+				console.log(item);
 			},
 
 			handleOrderSave() {

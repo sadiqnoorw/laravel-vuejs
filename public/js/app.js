@@ -2255,8 +2255,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['orderDetails']
+  props: ['orderDetails'],
+  methods: {
+    handleRemoveItem: function handleRemoveItem(item) {
+      window.eventBus.$emit("removeOrderedItem", item);
+    }
+  }
 });
 
 /***/ }),
@@ -2405,6 +2413,7 @@ __webpack_require__.r(__webpack_exports__);
     // window.eventBus.$on('clearFilteredList', this.handleClearFilteredList);
 
     window.eventBus.$on('filteredEventList', this.handleFilteredEventList);
+    window.eventBus.$on('removeOrderedItem', this.handleRemoveOrderedItem);
   },
   computed: {
     finalAmout: function finalAmout() {
@@ -2447,6 +2456,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     customerDetailsHandle: function customerDetailsHandle(customer) {
       this.customerDetails = customer;
+    },
+    handleRemoveOrderedItem: function handleRemoveOrderedItem(item) {
+      this.orderDetails = this.orderDetails.filter(function (orderDetail) {
+        return orderDetail.id != item.id;
+      });
+      console.log(item);
     },
     handleOrderSave: function handleOrderSave() {
       var orderItemsIds = [];
@@ -39413,9 +39428,24 @@ var render = function() {
     { staticClass: "list-group" },
     _vm._l(_vm.orderDetails, function(orderDetail, key) {
       return _c("li", { key: key, staticClass: "list-group-item" }, [
-        _vm._v("\n\t\t" + _vm._s(orderDetail.name) + "\n\t\t"),
+        _c("strong", [_vm._v(_vm._s(orderDetail.name))]),
+        _vm._v(", "),
+        _c("small", [_vm._v(_vm._s(orderDetail.category.name))]),
+        _vm._v(" "),
         _c("span", { staticClass: "float-right" }, [
-          _vm._v(_vm._s(orderDetail.price))
+          _vm._v("\n\t\t\t" + _vm._s(orderDetail.price) + "\n\t\t\t"),
+          _c(
+            "span",
+            {
+              staticClass: "ml-3",
+              on: {
+                click: function($event) {
+                  return _vm.handleRemoveItem(orderDetail)
+                }
+              }
+            },
+            [_vm._v("*")]
+          )
         ])
       ])
     }),

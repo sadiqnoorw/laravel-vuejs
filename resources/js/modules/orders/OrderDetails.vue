@@ -4,7 +4,9 @@
 			<strong>{{ orderDetail.name }}</strong>, <small>{{ orderDetail.category.name }}</small>
 			<span class="float-right">
 				{{ orderDetail.price }}
-				<span class="ml-3" @click="handleRemoveItem(orderDetail)">*</span>
+				<span class="ml-3" @click="handleRemoveItem(orderDetail)">
+					<i aria-hidden="true" class="fa fa-trash"></i>
+				</span>
 			</span>
 		</li>
 	</ul>
